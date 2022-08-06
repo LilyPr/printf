@@ -1,0 +1,60 @@
+man-3_printf 06 AUGUST 2022 "0x11.c printf by ALX SE Student "(MANUAL PAGE)
+
+A.
+NAME
+.printf() - used to display the output on the console screen according to the format
+ 
+B.
+SYNOPSIS
+.#include "main.h"
+. int _printf(const char *format, ...);
+
+C.
+DESCRIPTION
+.The printf() family of functions produces output according to a format
+
+.Format of the format string - a character string, beginning and ending in
+its initial shift state, if any.The format string is composedof zero or more directives
+ordinary characters (not %), which are copied unchanged to the output stream; and conversion
+specifications, each of which results in fetching zero or more subsequent arguments. Each conversion specification is
+introduced by the character %, and ends with a conversion specifier.
+
+.write output to stdout, the standard output stream
+
+.RETURN VALUE - after successful return value the number of characters printed (excluding the null byte used to end output to strings)
+
+.If an output error is encountered, a negative value is returned.
+
+D.conversion specifiers:
+ %c - Character Format Specifier
+ %s -String Format Specifier
+ % - start of format specifier symbol
+
+E.
+EXAMPLE
+Write program function to printf name and color
+#include 'main.h"
+#include <stdio.h>
+
+/**
+ * printf - print name and color
+ *
+ * Return: 0
+ */
+int main(void)
+{
+  char name = MICKY;
+  char color = "Blue";
+
+printf("My name is %c\n", name);
+printf("my favourite colour is %s", color);
+return (0);
+}
+
+SEE ALSO
+fprintf, dprintf, sprintf, snprintf, vprintf, vfprintf,
+vdprintf, vsprintf, vsnprintf - formatted output conversion
+
+AUTHOR
+Lily Mihanjo and Lukindo Kikunt'e
+
