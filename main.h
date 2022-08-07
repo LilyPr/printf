@@ -7,16 +7,16 @@
 
 struct convert
 {
-	char *sym;
+	char *str;
 	int (*f)(va_list);
 };
 typedef struct convert conver_t;
 
 int _printf(const char *format, ...);
-int _write_ch(char c);
-int displ_chars(va_list list);
-int show_str(va_list list);
-int show_perc(__attribut__((unused))va_list list);
-int show_integers(va_list list);
+int _putchar(char c);
+int print_ch(va_list list);
+int prnt_s(va_list list);
+int prnt_perc(__attribut__((unused))va_list list);
+int prnt_integer(va_list list);
 
 #endif
