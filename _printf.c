@@ -17,6 +17,7 @@ int (*handle_spec(const char *format))(va_list)
 		{"s", print_s},
 		{"i", print_i},
 		{"d", print_d},
+		{"perc", print_perc},
 		{NULL, NULL}
 	};
 	for (i = 0; k[i].t != NULL; i++)
