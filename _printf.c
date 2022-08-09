@@ -11,43 +11,41 @@
  */
 int _printf(const char *format, ...)
 {
-	if (format != NULL)
-	{
-		int count = 0, i;
-		int (*n)(va_list);
-		va_list args;
+	int count = 0;
+	va_list args;
+	int (*fn)(va_list) = NULL;
 
-		va_start(args, format);
-		i = 0;
-		if (format[0] == '%' && format[1] == '\0')
-			return (-1);
-		while (format != NULL && format[i] != '\0')
+	va_start(args, format);
+	while (*format)
+	{
+		if (*format == '%' && *(format + 1) != '%')
 		{
-			if (format[i] == '%')
+			format++;
+			fn = handle_func(format);
+			if (*(format) == '\0')
+				return (-1);
+			else if (fn == NULL)
 			{
-				if (format[i + 1] == '%')
-				{
-					count += _putchar(format[i]);
-					i += 2;
-				}
-				else
-				{
-					n = spec_handle(format[i + 1]);
-					if (n)
-						count += n(args);
-					else
-						count = _putchar(format[i]) + _putchar(format[i + 1]);
-					i += 2;
-				}
+				_putchar(*(format - 1));
+				_putchar(*format);
+				count += 2;
 			}
 			else
-			{
-				count += _putchar(format[i]);
-				i++;
-			}
+				count += fn(args);
 		}
-		va_end(args);
-		return (count);
+		else if (*format == '%' && *(format + 1) == '%')
+		{
+			format++;
+			_putchar('%');
+			count++;
+		}
+		else
+		{
+			_putchar(*format);
+			count++;
+		}
+		format++;
 	}
-	return (-1);
+	va_end(args);
+	return (count);
 }
