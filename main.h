@@ -1,31 +1,24 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef _MAIN_H_
+#define _MAIN_H_
 
-#include <stdio.h>
 #include <stdarg.h>
-#include <unistd.h>
-
 /**
- * struct usertype - give privelege to conversion specifiers to print function
- * @convertidf: the conversion specifier
- * @print: print functions
+ * Struct myprint - structure for printing various types
+ * @t: type to print
+ * @f: function to print
  */
-typedef struct usertype
+typedef struct myprint
 {
-	char *convertidf;
-	int (*print)(va_list);
-} usertype_t;
-int _printf(const char *format, ...);
-int print_chars(va_list args);
-int print_string(va_list args);
-int print_percent(va_list args);
-int print_d(va_list args);
-int print_i(va_list args);
-int (*handle_func(const char *spec))(va_list);
+	char *t;
+	int (*f)(va_list);
+} myprint_t;
 int _putchar(char c);
-int _strlen(char *);
-int countdgt(unsigned int num);
-int print_number(unsigned int k);
-int print_reve(va_list args);
+
+int _printf(const char *format, ...);
+int print_c(va_list c);
+int print_s(va_list s);
+int print_i(va_list i);
+int print_d(va_list d);
+int print_perc(va_list perc);
 
 #endif

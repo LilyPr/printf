@@ -1,51 +1,76 @@
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "main.h"
+#include <stdlib.h>
+#include <stdarg.h>
 
 /**
- * _printf - write output to stdou
- * @format: character string with format specifier
+ * _printf - Produces output according to a format
+ * @format: format specifier
  *
- * Returns: the number of characters printed
+ * Return: The number of characters printed
+ */
+int (*handle_spec(const char *format))(va_list)
+{
+	unsigned int i;
+
+	myprint_t k[] = {
+		{"c", print_c},
+		{"s", print_s},
+		{"i", print_i},
+		{"d", print_d},
+		{NULL, NULL}
+	};
+	for (i = 0; k[i].t != NULL; i++)
+	{
+		if (*(k[i].t) == *format)
+		{
+			break;
+		}
+	}
+	return (k[i].f);
+}
+/**
+ * _printf - prints anything
+ * @format: list of argument
+ *
+ * Return: number of characters printed
  */
 int _printf(const char *format, ...)
 {
-	int count = 0;
-	va_list args;
-	int (*func)(va_list) = NULL;
+	unsigned int i = 0, num = 0;
+	va_list valist;
+	int (*f)(va_list);
 
-	va_start(args, format);
-	while (*format)
+	if (format == NULL)
 	{
-		if (*format == '%' && *(format + 1) != '%')
-		{
-			format++;
-			func = handle_func(format);
-			if (*(format) == '\0')
-				return (-1);
-			else if (func == NULL)
-			{
-				_putchar(*(format - 1));
-				_putchar(*format);
-				count += 2;
-			}
-			else
-				count += func(args);
-		}
-		else if (*format == '%' && *(format + 1) == '%')
-		{
-			format++;
-			_putchar('%');
-			count++;
-		}
-		else
-		{
-			_putchar(*format);
-			count++;
-		}
-		format++;
+		return (-1);
 	}
-	va_end(args);
-	return (count);
+	va_start(valist, format);
+	
+	while (format[i])
+	{
+		for (; format[i] != '%' && format[i]; i++)
+		{
+			_putchar(format[i]);
+			num++;
+		}
+		if (!format[i])
+			return (num);
+		f = handle_spec(&format[i + 1]);
+		if (f != NULL)
+		{
+			num += f(valist);
+			i += 2;
+			continue;
+		}
+		if (!format[i + 1])
+			return (-1);
+		_putchar(format[i]);
+		num++;
+		if (format[i + 1] == '%')
+			i += 2;
+		else
+			i++;
+	}
+	va_end(valist);
+	return (num);
 }
