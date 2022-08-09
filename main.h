@@ -23,5 +23,9 @@ int print_d(va_list args);
 int print_i(va_list args);
 int (*handle_func(const char *spec))(va_list);
 int _putchar(char c);
+int _strlen(char *);
+int countdgt(unsigned int num);
+int print_number(unsigned int k);
+int print_reve(va_list args);
 
 #endif

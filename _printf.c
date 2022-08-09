@@ -13,7 +13,7 @@ int _printf(const char *format, ...)
 {
 	int count = 0;
 	va_list args;
-	int (*fn)(va_list) = NULL;
+	int (*func)(va_list) = NULL;
 
 	va_start(args, format);
 	while (*format)
@@ -21,17 +21,17 @@ int _printf(const char *format, ...)
 		if (*format == '%' && *(format + 1) != '%')
 		{
 			format++;
-			fn = handle_func(format);
+			func = handle_func(format);
 			if (*(format) == '\0')
 				return (-1);
-			else if (fn == NULL)
+			else if (func == NULL)
 			{
 				_putchar(*(format - 1));
 				_putchar(*format);
 				count += 2;
 			}
 			else
-				count += fn(args);
+				count += func(args);
 		}
 		else if (*format == '%' && *(format + 1) == '%')
 		{
