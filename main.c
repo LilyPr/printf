@@ -8,11 +8,15 @@
  */
 int main(void)
 {
-	printf("The color: %s\n", "blue");
-	printf("First number: %d\n", 12345);
-	printf("Just print the percentage sign %%\n", 10);
-	printf("Third number: %i\n", 1234);
-	printf("the letter: %c\n", 'M');
+	char ch = 'C';
+	char str[] = "Hello Everyone";
+	int x = 40, y = 80;
 
+	printf("%c\n", ch);
+	printf("%s\n", str);
+	printf("%%\n", x);
+	printf("%%\n", y);
+	printf("%d\n", x);
+	printf("%i\n", y);
 	return (0);
 }
